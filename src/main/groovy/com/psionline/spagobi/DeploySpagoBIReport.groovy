@@ -32,7 +32,7 @@ public class DeploySpagoBIReport {
 
         def importSvc = '/services/ImportExportSDKService'
 
-        logger.info("com.psionline.spagobi.DeploySpagoBIReport main")
+        logger.info("DeploySpagoBIReport main")
         def startTime = System.currentTimeMillis()
 
         String exportFileName = args[0]
@@ -104,12 +104,14 @@ public class DeploySpagoBIReport {
     static void displayLog(def env, def logName) {
         def dstLogH = new File(logName)
         dstLogH.readLines().each() {
-            if (it.contains("The document with label") && it.contains("updated"))
-                logger.info( "${env} : ${it}" )
-            if (it.contains("The lov with label") && it.contains("updated"))
-                logger.info( "${env} : ${it}" )
-            if (it.contains("The dataset with label") && it.contains("updated"))
-                logger.info( "${env} : ${it}" )
+            if (it.contains("updated")) {
+                if (it.contains("The document with label"))
+                    logger.info( "${env} : ${it}" )
+                else if (it.contains("The lov with label"))
+                    logger.info( "${env} : ${it}" )
+                else if (it.contains("The dataset with label"))
+                    logger.info( "${env} : ${it}" )
+            }
         }
     }
 
