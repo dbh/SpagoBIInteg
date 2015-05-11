@@ -1,0 +1,28 @@
+[
+  { "environment": {
+    "name": "dev1",
+    "spagobi": {
+      "server": "http://Dev1:8080/SpagoBI",
+      "user": "biadmin",
+      "password": "biadmin"
+    }
+  }},
+  
+  { "environment": {
+    "name": "qa1",
+    "spagobi": {
+      "server": "http://Qa1:8080/SpagoBI",
+      "user": "biadmin",
+      "password": "biadmin"
+    }
+  }},
+
+  { "environment": {
+    "name": "prod",
+    "spagobi": {
+      "server": "http://Production:8080/SpagoBI",
+      "user": "biadmin",
+      "password": "biadmin"
+    }
+  }}
+]

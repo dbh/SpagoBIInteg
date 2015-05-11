@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<USER_ASSOCIATIONS>
+  <ROLE_ASSOCIATIONS>
+    <ROLE_ASSOCIATION associatedTo="/spagobi/dev" exported="/spagobi/dev"/>
+    <ROLE_ASSOCIATION associatedTo="/spagobi/admin" exported="/spagobi/admin"/>
+    <ROLE_ASSOCIATION associatedTo="/spagobi/user" exported="/spagobi/user"/>
+    <ROLE_ASSOCIATION associatedTo="/spagobi/test" exported="/spagobi/test"/>
+    <ROLE_ASSOCIATION associatedTo="/spagobi/mobile" exported="/spagobi/mobile"/>
+    <ROLE_ASSOCIATION associatedTo="/spagobi/userb" exported="/spagobi/userb"/>
+    <ROLE_ASSOCIATION associatedTo="/spagobi/bam" exported="/spagobi/bam"/>
+    <ROLE_ASSOCIATION associatedTo="/spagobi/demo" exported="/spagobi/demo"/>
+    <ROLE_ASSOCIATION associatedTo="/spagobi/an_reva" exported="/spagobi/an_reva"/>
+    <ROLE_ASSOCIATION associatedTo="/spagobi/user/demo" exported="/spagobi/user/demo"/>
+    <ROLE_ASSOCIATION associatedTo="/spagobi/modeladmin" exported="/spagobi/modeladmin"/>
+    <ROLE_ASSOCIATION associatedTo="/spagobi/op_reva" exported="/spagobi/op_reva"/>
+  </ROLE_ASSOCIATIONS>
+  <ENGINE_ASSOCIATIONS>
+    <ENGINE_ASSOCIATION associatedTo="SpagoBIBirtReportEng" exported="SpagoBIBirtReportEng"/>
+  </ENGINE_ASSOCIATIONS>
+  <DATA_SOURCE_ASSOCIATIONS>
+    <DATA_SOURCE_ASSOCIATION associatedTo="DS1" exported="DS1"/>
+	<DATA_SOURCE_ASSOCIATION associatedTo="DS2" exported="DS2"/>
+	<DATA_SOURCE_ASSOCIATION associatedTo="DS3" exported="DS3"/>	
+  </DATA_SOURCE_ASSOCIATIONS>
+</USER_ASSOCIATIONS>
