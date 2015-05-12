@@ -1,11 +1,12 @@
-package com.psionline.spagobi; /**
+package com.psionline.spagobi
+
+import groovy.json.JsonSlurper; /**
  * Created by dharrison on 4/16/2015.
  * David B. Harrison
+ *
+ * See SpagoBI SDK Documentation at http://wiki.spagobi.org/xwiki/bin/view/spagobi_sdk/SDK_2_3_User_guide
  */
 
-//TODO Parameterize SpagoBI Environment
-//TODO Parameterize Document Type
-//TODO Parameterize Document Path in Functional Hierarchy
 
 import it.eng.spagobi.sdk.proxy.DocumentsServiceProxy;
 import it.eng.spagobi.sdk.documents.bo.SDKDocument;
@@ -18,18 +19,26 @@ public class GetListOfReports {
     private static final Logger logger = LoggerFactory.getLogger("GetListOfReports")
 
     public static void main(String[] args) {
-        String spagobiBaseURL = "http://localhost:8080/SpagoBI/sdk/DocumentsService";
-        String spagobiUser = "biadmin";
-        String spagobiPassword = "biadmin";
+        def envArg = args[0] //Should be spagobi environment name in the config.json file
+
+        def baseDir = "/var/lib/psi/deployer"
+        def jsonStr = new File ("${baseDir}/config.json").text
+        def slurper  = new JsonSlurper().parseText(jsonStr)
+        def envConfig = slurper.environment
+
         DocumentsServiceProxy proxy = null;
-        String docPath = null;
 
         logger.info("Main");
         try {
-            proxy = new DocumentsServiceProxy(spagobiUser, spagobiPassword);
+
+            def envData = envConfig.find{it.name==envArg}
+            def spagobi = envData.spagobi
+            def spagobiBaseURL = "${spagobi.server}/sdk/DocumentsService";
+
+            proxy = new DocumentsServiceProxy(spagobi.user, spagobi.password);
             proxy.setEndpoint(spagobiBaseURL);
 
-            SDKDocument[] documents = proxy.getDocumentsAsList("REPORT", null, docPath);
+            SDKDocument[] documents = proxy.getDocumentsAsList("REPORT", null/*state*/, null/*docPath*/);
             for (SDKDocument doc : documents) {
                 logger.info(doc.getId() + ", "+ doc.getLabel()+", "+doc.getDescription());
             }
