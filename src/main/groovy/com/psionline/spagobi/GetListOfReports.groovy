@@ -7,7 +7,6 @@ import groovy.json.JsonSlurper; /**
  * See SpagoBI SDK Documentation at http://wiki.spagobi.org/xwiki/bin/view/spagobi_sdk/SDK_2_3_User_guide
  */
 
-
 import it.eng.spagobi.sdk.proxy.DocumentsServiceProxy;
 import it.eng.spagobi.sdk.documents.bo.SDKDocument;
 import java.rmi.RemoteException;
@@ -19,36 +18,42 @@ public class GetListOfReports {
     private static final Logger logger = LoggerFactory.getLogger("GetListOfReports")
 
     public static void main(String[] args) {
-        def envArg = args[0] //Should be spagobi environment name in the config.json file
-
         def baseDir = "/var/lib/psi/deployer"
         def jsonStr = new File ("${baseDir}/config.json").text
         def slurper  = new JsonSlurper().parseText(jsonStr)
         def envConfig = slurper.environment
-
         DocumentsServiceProxy proxy = null;
 
-        logger.info("Main");
-        try {
+        if (args.size()!=1) {
+            logger.info("GetListOfReports environment[,environment]")
+            System.exit(0)
+        }
 
-            def envData = envConfig.find{it.name==envArg}
-            def spagobi = envData.spagobi
-            def spagobiBaseURL = "${spagobi.server}/sdk/DocumentsService";
+        logger.info("GetListOfReports main");
+        def envList = args[0].split(",")
+        envList.each() { envArg ->
+            try {
+                logger.info("Process env arg: ${envArg}")
+                def envData = envConfig.find{it.name==envArg}
+                def spagobi = envData.spagobi
+                def spagobiBaseURL = "${spagobi.server}/sdk/DocumentsService"
 
-            proxy = new DocumentsServiceProxy(spagobi.user, spagobi.password);
-            proxy.setEndpoint(spagobiBaseURL);
+                proxy = new DocumentsServiceProxy(spagobi.user, spagobi.password)
+                proxy.setEndpoint(spagobiBaseURL)
 
-            SDKDocument[] documents = proxy.getDocumentsAsList("REPORT", null/*state*/, null/*docPath*/);
-            for (SDKDocument doc : documents) {
-                logger.info(doc.getId() + ", "+ doc.getLabel()+", "+doc.getDescription());
+                SDKDocument[] documents = proxy.getDocumentsAsList("REPORT", null/*state*/, null/*docPath*/)
+                for (SDKDocument doc : documents) {
+                    logger.info("${envArg} ${doc.getId()} , ${doc.getLabel()}, ${doc.getDescription()}")
+                }
+            }
+            catch (RemoteException reE) {
+                logger.error("RemoteException while getting list of documents (getDocumentsAsList)")
+                logger.error(reE.getMessage())
+            }
+            catch (Exception e) {
+                logger.error("Unexpected error, but continue trying for other environments")
+                logger.info(e.getMessage())
             }
         }
-        catch (RemoteException reE) {
-            logger.error(reE.getMessage());
-        }
-        catch (Exception e) {
-            logger.info(e.getMessage());
-        }
-
     }
 }

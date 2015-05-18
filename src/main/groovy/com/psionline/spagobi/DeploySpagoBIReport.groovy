@@ -33,13 +33,18 @@ public class DeploySpagoBIReport {
 
         def importSvc = '/services/ImportExportSDKService'
 
+        if (args.size()!=2) {
+            logger.info("DeploySpagoBIReport exportDocumentName.zip environment[,environment]")
+            System.exit(0)
+        }
+
         logger.info("DeploySpagoBIReport main")
         def startTime = System.currentTimeMillis()
 
         String exportFileName = args[0]
         String associationsFileName = "associations.xml"
 
-        def envList = Eval.me(args[1])
+        def envList = args[1].split(",")
         envList.each() { env->
             logger.info("---------------------")
             logger.info("Processing for ${env}")
@@ -90,9 +95,13 @@ public class DeploySpagoBIReport {
                 displayLog(env, f.toAbsolutePath().toString())
             }
             catch (RemoteException reE) {
+                logger.error("RemoteException while deploying documents (getDocumentsAsList)")
+                logger.error(reE.getMessage());
                 reE.printStackTrace();
             }
             catch (Exception e) {
+                logger.error("Exception while deploying report")
+                logger.error(e.getMessage());
                 e.printStackTrace();
             }
         }
