@@ -1,10 +1,6 @@
 # SpagoBIInteg
 SpagoBI Tools for Doc Deployment, etc.
 
-## Note
-The code in this repo was last tested on SpagoBI 5.2. 
-The code is completely unsupported and unknown to work with later versions (aka Knowage).
-
 
 ## Info
 
@@ -19,3 +15,7 @@ The zip file artifact can now be deployed via the mechanism here to multiple Spa
 For example, the below command will deploy a report document (extracted from SpagoBI as a zip file) to other SpagoBI environments, eliminating the need to log into SpagoBI Web user-interface in carefully perform a series of import steps.
 
 DeploySpagoBIReport ExportedReports01.zip dev2,dev3,qa1
+
+## Note
+The code in this repo was last tested on SpagoBI 5.2. 
+The code is completely unsupported and unknown to work with later versions (aka Knowage).
