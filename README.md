@@ -4,7 +4,9 @@ SpagoBI Tools for Doc Deployment, etc.
 
 ## Info
 
+I hate manual deployments and repetitive, error-prone configurations. Why can't some of that be automated?
 Tools in this project work with the SpagoBI SDK to automate some processes such as deployment of SpagoBI Documents to multiple environments.
+
 
 The initial deploying of the report is performed via SpagoBI Studio. 
 Then, the report is configured in SpagoBI Server and exported as a zip file.
