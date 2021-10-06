@@ -1,6 +1,9 @@
 # SpagoBIInteg
 SpagoBI Tools for Doc Deployment, etc.
 
+## Important Node
+This repo is abandonware. I no longer work with SpagoBI (renamed to Knowage) and the code here is horribly out of date. 
+The code here is for SpagoBI 5.2.
 
 ## Info
 
